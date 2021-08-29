@@ -6,13 +6,12 @@ package com.bank.mybank.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bank.mybank.Model.account;
@@ -31,6 +30,7 @@ public class AccountController {
 	  private accountRepository repository;
 	@Autowired
 	  private withDrawService WDS;
+	
 	@GetMapping("/accounts/{id}")
 	  public List<account> getAccountById(@PathVariable("id") int id) {
 		return repository.findByAccountId(id);
@@ -49,6 +49,7 @@ public class AccountController {
 		return WDS.deposit(accountdetails.getbalance(), id);
 	    
 	  }
+	  
 	  @CrossOrigin(origins="http://localhost:4200")
 	  @PostMapping("/accounts/new")
 	  public JSONObject creatAccount(@RequestBody account accountdetails) {
@@ -56,6 +57,13 @@ public class AccountController {
 				repository.save(accountdetails);
 				
 				return repository.findByAccountName(accountdetails.getaccountName()).get(0).getId();
+	    
+	  }
+	  @CrossOrigin(origins="http://localhost:4200")
+	  @PutMapping("/accounts/{name}")
+	  public String updateBalance(@RequestBody long amount,@PathVariable("name") String accountName) {
+		  
+		return WDS.withDraw(amount, accountName);
 	    
 	  }
 }
