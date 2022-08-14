@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Built-By: User
+Build-Jdk: 9.0.4
+Implementation-Title: mybank
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.bank
+Implementation-URL: https://spring.io/projects/spring-boot/mybank
+Created-By: Maven Integration for Eclipse
+
